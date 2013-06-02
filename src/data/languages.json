@@ -1,0 +1,27 @@
+[
+
+	{
+		"id" : "en",
+		"name" : "english",
+		"preview" : "hello"
+	},
+	
+	{
+		"id" : "esp",
+		"name" : "español",
+		"preview" : "¡hola"
+	},
+	
+	{
+		"id" : "chi_trad",
+		"name" : "中文（繁體)",
+		"preview" : "你好"
+	},
+	
+	{
+		"id" : "jpy",
+		"name" : "日本語",
+		"preview" : "こんにちは"
+	}
+
+]
