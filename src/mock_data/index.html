@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Generate the SQL to create the mock data</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.0.0.min.js"></script>	
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+<script type="text/javascript">
+	
+	var types = ["basketball", "tennis", "baseball", "football", "volleyball", "hockey", "soccer"];
+	var events = [];
+	var count = -1;
+	
+	$(function() {
+
+		$.ajax({
+			type: "GET",
+			url: "youth_centers.json",
+			cache: false,
+			success: function(data)
+			{
+				count = data.data.length;
+				
+				for(var i in data.data)
+				{
+					var row = data.data[i];
+					var address = row[10] + " " + row[11] + ". " + row[12] + " " + row[13] + ", " + row[14] + " " + row[15] + ", " + row[16];
+					var phone = row[17];
+					var type = Math.round(Math.random() * (types.length-1));
+					var name = (row[21] ? row[21].toLowerCase() + " " : "") + "kids " + types[type] + " league";
+					var description = "Coed youth " + types[type] + " league for kids aged 10-12";
+					var price = "$80, includes uniform";
+					var schedule = "Starts 06/06/2013. Practices every wednesday and games on Fridays";
+					var event = {name: name, locationName: row[8], address: address, description: description, 
+						phone: phone, price: price, schedule: schedule, type: type};
+					geocode(event, i);
+				}
+			}
+		});		
+		
+	});	
+	
+	/**
+	 * geocode an address to lat and lng using the google maps api
+	 * @param event, object
+	 * @param index, int
+	 */
+	function geocode(event, index) 
+	{
+		var time = 250 * index;
+		var data = {address: event.address, sensor: false};
+		setTimeout(function(){
+			$.ajax({
+				type: "GET",
+				url: "http://maps.googleapis.com/maps/api/geocode/json",
+				data: data,
+				cache: false,
+				success: function(data){
+					if(data.status == "OK" && data.results && data.results.length>0) {
+						var location = data.results[0].geometry.location;
+						event.lat = location.lat;
+						event.lng = location.lng;
+					}
+					else {
+						console.log("geocode error: ");
+						console.log(event);
+						console.log(data);
+					}
+					
+					events.push(event);
+					console.log(events.length + " loaded...");
+					if(events.length == count) {
+						console.log(events);
+						createSQL(events);
+					}
+				}
+			});	
+		}, time);
+	}
+	
+	/**
+	 * create the sql to insert into db
+	 * @param events
+	 */
+	function createSQL(events)
+	{
+		var sql = "";
+		for(var i in events)
+		{
+			var event = events[i];
+			if(event.lat != undefined && event.lng != undefined) 
+			{
+				sql += "INSERT INTO events (name, loc_name, description, address, phone, price, schedule, " +
+                "type, lat, lng) VALUES (\"" + event.name + "\", \"" + event.locationName + "\", \"" + event.description + "\", \"" + 
+                event.address + "\"," + "\"" + event.phone + "\", \"" + event.price + "\", \"" + event.schedule + "\", \"" + 
+                event.type + "\", \"" + event.lat + "\", \"" + event.lng + "\");\n";
+			}
+		}
+		
+		console.log(sql);
+	}
+	
+</script>
+</head>
+<body>
+	
+	
+	
+</body>
+</html> 	
