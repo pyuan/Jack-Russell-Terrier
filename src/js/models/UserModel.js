@@ -11,7 +11,7 @@ define([
 		{
 			this.set({
 				"language": attributes["language"] ? attributes["language"] : null, //LanguageModel object
-				"eventType": attributes["eventType"] ? attributes["eventType"] : -1, //int
+				"sport": attributes["sport"] ? attributes["sport"] : null, //SportModel object
 			});
 		},
 		

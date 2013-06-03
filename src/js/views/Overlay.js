@@ -34,20 +34,11 @@ define([
          * @param none
          */
         render: function() {
-        	$(window).trigger("resize");
             return this; //Maintains chainability
         },
         
         /**
-         * when the panel is resized
-         * @param none
-         */
-        onResize: function() {
-        	
-        },
-        
-        /**
-         * when the panel is being shown
+         * when the view is being shown
          * @param none
          */
         show: function() {
@@ -56,7 +47,7 @@ define([
         },
         
         /**
-         * when the panel is being hidden
+         * when the view is being hidden
          * @param none
          */
         hide: function() {
@@ -65,7 +56,7 @@ define([
         },
         
         /**
-         * returns if the panel is current showing
+         * returns if the view is current showing
          * @param none
          * @return isShowing, boolean
          */

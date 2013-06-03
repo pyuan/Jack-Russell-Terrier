@@ -11,8 +11,9 @@ define([
 		"views/PTMap",
 		"views/LanguageOverlay",
 		"views/SportOverlay",
+		"views/FilterButtons",
 		
-	], function( $, Backbone, Blur, UserModel, PTMap, LanguageOverlay, SportOverlay ) {
+	], function( $, Backbone, Blur, UserModel, PTMap, LanguageOverlay, SportOverlay, FilterButtons ) {
 
     // Extends Backbone.Router
     var ApplicationController = Backbone.Router.extend({
@@ -21,6 +22,7 @@ define([
 		_mapView: null, //PTMap object
 		_languagePicker: null, //LanguageOverlay object
 		_sportPicker: null, //SportOverlay object
+		_filterButtons: null, //FilterButtons object
 		
         /**
          * The Router constructor
@@ -34,6 +36,7 @@ define([
         	this._mapView = new PTMap({el: $("#map")});
         	this._languagePicker = new LanguageOverlay({el: $("#languageOverlay")});
         	this._sportPicker = new SportOverlay({el: $("#sportOverlay")});
+        	this._filterButtons = new FilterButtons({el: $("#filterButtons")});
 
         	this._showStep1();
         	
@@ -60,7 +63,7 @@ define([
         _showWhiteOverlay: function()
         {
         	$("#block").fadeIn(500);
-        	$("#footer, #map").blurjs({
+        	$("#footer, #map, #foreground").blurjs({
 			    radius: 10,
 			    persist: false
 			});
@@ -101,7 +104,6 @@ define([
          * @param none
          */
         showStep3: function() {
-        	this.hideLanguagePicker();
         	this.showSportPicker();
         },
         
@@ -119,6 +121,7 @@ define([
          * @param none
          */
         showLanguagePicker: function() {
+        	this._hideAllOverlays();
         	this._languagePicker.show();
         },
         
@@ -131,10 +134,19 @@ define([
         },
         
         /**
+         * toggle show hide of the language picker
+         * @param none
+         */
+        toggleLanguagePicker: function() {
+        	this._languagePicker.isShowing() ? this.hideLanguagePicker() : this.showLanguagePicker();
+        },
+        
+        /**
          * show the sport picker
          * @param none
          */
         showSportPicker: function() {
+        	this._hideAllOverlays();
         	this._sportPicker.show();
         },
         
@@ -144,6 +156,22 @@ define([
          */
         hideSportPicker: function() {
         	this._sportPicker.hide();
+        },
+        
+        /**
+         * toggle show/hide sport picker
+         * @param none
+         */
+        toggleSportPicker: function() {
+        	this._sportPicker.isShowing() ? this.hideSportPicker() : this.showSportPicker();
+        },
+        
+        /**
+         * hide all the overlays
+         * @param none
+         */
+        _hideAllOverlays: function() {
+        	$(".overlay").removeClass("showing");
         },
 
     });

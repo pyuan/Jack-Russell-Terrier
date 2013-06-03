@@ -53,9 +53,7 @@ define([
         	//on ok button clicked, update user model
         	this.$el.on("click", "#okBtn", function(){
         		var user = controller.getUserModel();
-        		if(!user.get("language")) {
-        			controller.showStep3();
-        		}
+        		!user.get("language") ? controller.showStep3() : self.hide();
         		
         		var selected = self.$el.find("#languages").val();
         		var language = self._languages.get(selected);
