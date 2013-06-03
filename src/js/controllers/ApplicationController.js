@@ -6,18 +6,21 @@ define([
 	
 		"jquery",
 		"backbone", 
+		"blur",
 		"models/UserModel",
 		"views/PTMap",
 		"views/LanguageOverlay",
+		"views/SportOverlay",
 		
-	], function( $, Backbone, UserModel, PTMap, LanguageOverlay ) {
+	], function( $, Backbone, Blur, UserModel, PTMap, LanguageOverlay, SportOverlay ) {
 
     // Extends Backbone.Router
     var ApplicationController = Backbone.Router.extend({
 		
 		_userModel: null, //UserModel object
 		_mapView: null, //PTMap object
-		_languageOverlay: null, //LanguageOverlay object
+		_languagePicker: null, //LanguageOverlay object
+		_sportPicker: null, //SportOverlay object
 		
         /**
          * The Router constructor
@@ -29,12 +32,13 @@ define([
         	
         	this._userModel = new UserModel({});
         	this._mapView = new PTMap({el: $("#map")});
-        	this._languageOverlay = new LanguageOverlay({el: $("#languageOverlay")});
-        	this._showLogo();
+        	this._languagePicker = new LanguageOverlay({el: $("#languageOverlay")});
+        	this._sportPicker = new SportOverlay({el: $("#sportOverlay")});
+
+        	this._showStep1();
         	
         	$("body").on("click", "#introLogo", function(){
-        		self._hideLogo();
-        		self.showLanguagePicker();
+        		self._showStep2();
         	});
         	
             console.log("Application intialized.");
@@ -50,25 +54,64 @@ define([
         },
         
         /**
-         * show the intro logo for some time
+         * show white overlay and blur the background
          * @param none
          */
-        _showLogo: function() 
+        _showWhiteOverlay: function()
         {
-        	var self = this;
-        	$("#block, #introLogo").fadeIn(250);
-        	setTimeout(function(){
-        		self._hideLogo();
-        		self.showLanguagePicker();
-        	}, 5000);
+        	$("#block").fadeIn(500);
+        	$("#footer, #map").blurjs({
+			    radius: 10,
+			    persist: false
+			});
         },
         
         /**
-         * hide the intro logo
+         * hide the white overlay and unblur the background
          * @param none
          */
-        _hideLogo: function() {
+        _hideWhiteOverlay: function()
+        {
+        	$.blurjs('reset');
+        	$("#block").hide();
+        },
+        
+        /**
+         * show the intro logo for some time
+         * @param none
+         */
+        _showStep1: function() 
+        {
+        	var self = this;
+        	$("#introLogo").fadeIn(250);
+        	this._showWhiteOverlay();
+        },
+        
+        /**
+         * show the language picker
+         * @param none
+         */
+        _showStep2: function() {
         	$("#introLogo").fadeOut(250);
+        	this.showLanguagePicker();
+        },
+        
+        /**
+         * show the sport picker
+         * @param none
+         */
+        showStep3: function() {
+        	this.hideLanguagePicker();
+        	this.showSportPicker();
+        },
+        
+        /**
+         * hide the white overlay
+         * @param none
+         */
+        showStep4: function() {
+        	this.hideSportPicker();
+        	this._hideWhiteOverlay();
         },
         
         /**
@@ -76,8 +119,32 @@ define([
          * @param none
          */
         showLanguagePicker: function() {
-        	this._languageOverlay.show();
-        }
+        	this._languagePicker.show();
+        },
+        
+        /**
+         * hide the laguage picker
+         * @param none
+         */
+        hideLanguagePicker: function() {
+        	this._languagePicker.hide();
+        },
+        
+        /**
+         * show the sport picker
+         * @param none
+         */
+        showSportPicker: function() {
+        	this._sportPicker.show();
+        },
+        
+        /**
+         * hide the sport picker
+         * @param none
+         */
+        hideSportPicker: function() {
+        	this._sportPicker.hide();
+        },
 
     });
 

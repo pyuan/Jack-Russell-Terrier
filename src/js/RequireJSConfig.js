@@ -7,6 +7,7 @@ require.config( {
 
             // Core Libraries
             "jquery"		: "http://code.jquery.com/jquery-2.0.0.min", 
+            "jqueryui"		: "../libs/jqueryui/jquery-ui-1.10.3.custom.min",
             "underscore"	: "../libs/underscore/underscore-min",
             "backbone"		: "../libs/backbone/backbone-min",
             "handlebars"	: "../libs/handlebars/handlebars",
@@ -19,7 +20,7 @@ require.config( {
             "helper"		: "../libs/mobile_boiler_plate/helper",
             "plugins"		: "../libs/mobile_boiler_plate/plugins",
             "cftoaster"		: "../libs/cftoaster/jquery.cftoaster.1.0.0.min",
-            "blur"			: "../libs/blurjs/blur.min",
+            "blur"			: "../libs/blurjs/blur",
 
       },
 
@@ -40,6 +41,7 @@ require.config( {
             	"exports": "_"
             },
             
+            "jqueryui"		: ["jquery"],
             "scrollto"		: ["jquery"],
             "bootstrap"		: ["jquery"],
             "gsap"			: ["jquery", "tweenmax"],

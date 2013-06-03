@@ -8,9 +8,7 @@ define([
 	], function( $, Backbone, Overlay, DataUtils ) {
 		
     // Extends Overlay class
-    var LanguageOverlay = Overlay.extend({
-    	
-    	_languages: null, //LanguagesCollection object
+    var SportOverlay = Overlay.extend({
     	
     	/**
          * The View Constructor
@@ -19,18 +17,17 @@ define([
         initialize: function(options) 
         {
         	var self = this;
-        	options.template = "language_overlay";
-        	var onData = function(languages) {
-        		self._languages = languages;
-        		
-        		var langs = [];
-        		languages.each(function(language){
-        			langs.push({id: language.get("id"), name: language.get("name")});
+        	options.template = "sports_overlay";
+        	var onData = function(sports) {
+
+        		var arr = [];
+        		sports.each(function(sport){
+        			arr.push({id: sport.get("id"), name: sport.get("name"), icon: sport.get("icon")});
         		});
-        		options.templateParams = {languages: langs};
+        		options.templateParams = {sports: arr};
         		Overlay.prototype.initialize.call(self, options);
         	}
-        	DataUtils.getLanguages(onData); 
+        	DataUtils.getSports(onData); 
         },
         
         /**
@@ -43,23 +40,16 @@ define([
         	
         	var self = this;
         	
-        	//languages change dropdowns, just update preview
-        	this.$el.on("change", "#languages", function(){
-        		var selected = $(this).val();
-        		var language = self._languages.get(selected);
-        		self.$el.find("#preview").text(language.get("preview")); //update the views
-        	});
-        	
-        	//on ok button clicked, update user model
-        	this.$el.on("click", "#okBtn", function(){
+        	//click handler for sport icons
+        	this.$el.on("click", ".sportIcon", function(){
         		var user = controller.getUserModel();
-        		if(!user.get("language")) {
-        			controller.showStep3();
-        		}
+        		user.get("eventType") == -1 ? controller.showStep4() : controller.hideSportPicker();
         		
-        		var selected = self.$el.find("#languages").val();
-        		var language = self._languages.get(selected);
-        		user.set("language", language);
+        		$(this).siblings(".sportIcon").removeClass("selected");
+        		$(this).addClass("selected");
+        		
+        		var id = $(this).attr("data-id");
+        		user.set("eventType", id);
         	});
         	
             return this; //Maintains chainability
@@ -73,9 +63,10 @@ define([
         	Overlay.prototype.show.call(this);
         	
         	var user = controller.getUserModel();
-        	var language = user.get("language");
-        	if(language) {
-        		this.$el.find("#languages").val(language.get("id"));
+        	var type = user.get("eventType");
+        	if(type != -1) {
+        		this.$el.find(".sportIcon").removeClass("selected");
+        		this.$el.find(".sportIcon[data-id=" + type + "]").addClass("selected");
         	}
         },
         
@@ -98,6 +89,6 @@ define([
     });
 
     // Returns the View class
-    return LanguageOverlay;
+    return SportOverlay;
 
 });

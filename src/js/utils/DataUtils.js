@@ -3,9 +3,11 @@ define([
 		"jquery", 
 		"backbone",
 		"collections/LanguagesCollection",
+		"collections/SportsCollection",
 		"models/LanguageModel",
+		"models/SportModel",
 		
-	], function($, Backbone, LanguagesCollection, LanguageModel) {
+	], function($, Backbone, LanguagesCollection, SportsCollection, LanguageModel, SportModel) {
 
 	var DataUtils = Backbone.Model.extend({},
 	
@@ -23,7 +25,7 @@ define([
 				dataType: "json",
 				cache: false,
 				success: function(data) {
-					console.log("Data file loaded: ");
+					console.log("Data file " + file + " loaded: ");
 					console.log(data);
 					
 					if(onResultHandler) {
@@ -54,6 +56,29 @@ define([
 				}
 			}
 			this._getData("languages.json", onData);
+		},
+		
+		/**
+		 * get the sports
+		 * @param onResultHandler, function to receive a LanguagesCollection
+		 */
+		getSports: function(onResultHandler) 
+		{
+			var onData = function(json) 
+			{
+				var arr = [];
+				for(var i in json) {
+					var s = json[i];
+					var sport = new SportModel(s);
+					arr.push(sport);
+				}
+				var sports = new SportsCollection(arr);
+				
+				if(onResultHandler) {
+					onResultHandler(sports);
+				}
+			}
+			this._getData("sports.json", onData);
 		},
 			
 	});

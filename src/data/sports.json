@@ -1,0 +1,45 @@
+[
+
+	{
+		"id" : "0",
+		"name" : "basketball",
+		"icon" : "assets/images/icon_basketball.png"
+	},
+	
+	{
+		"id" : "1",
+		"name" : "tennis",
+		"icon" : "assets/images/icon_tennis.png"
+	},
+	
+	{
+		"id" : "2",
+		"name" : "baseball",
+		"icon" : "assets/images/icon_baseball.png"
+	},
+	
+	{
+		"id" : "3",
+		"name" : "football",
+		"icon" : "assets/images/icon_football.png"
+	},
+	
+	{
+		"id" : "4",
+		"name" : "volleyball",
+		"icon" : "assets/images/icon_volleyball.png"
+	},
+	
+	{
+		"id" : "5",
+		"name" : "hockey",
+		"icon" : "assets/images/icon_hockey.png"
+	},
+	
+	{
+		"id" : "6",
+		"name" : "soccer",
+		"icon" : "assets/images/icon_soccer.png"
+	}
+
+]
