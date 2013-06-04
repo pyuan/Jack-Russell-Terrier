@@ -12,8 +12,9 @@ define([
 		"views/LanguageOverlay",
 		"views/SportOverlay",
 		"views/FilterButtons",
+		"views/InfoOverlay",
 		
-	], function( $, Backbone, Blur, UserModel, PTMap, LanguageOverlay, SportOverlay, FilterButtons ) {
+	], function( $, Backbone, Blur, UserModel, PTMap, LanguageOverlay, SportOverlay, FilterButtons, InfoOverlay ) {
 
     // Extends Backbone.Router
     var ApplicationController = Backbone.Router.extend({
@@ -23,6 +24,7 @@ define([
 		_languagePicker: null, //LanguageOverlay object
 		_sportPicker: null, //SportOverlay object
 		_filterButtons: null, //FilterButtons object
+		_infoOverlay: null, //InfoOverlay object
 		
         /**
          * The Router constructor
@@ -37,6 +39,7 @@ define([
         	this._languagePicker = new LanguageOverlay({el: $("#languageOverlay")});
         	this._sportPicker = new SportOverlay({el: $("#sportOverlay")});
         	this._filterButtons = new FilterButtons({el: $("#filterButtons")});
+        	this._infoOverlay = new InfoOverlay({el: $("#infoOverlay")});
 
         	this._showStep1();
         	
@@ -164,6 +167,31 @@ define([
          */
         toggleSportPicker: function() {
         	this._sportPicker.isShowing() ? this.hideSportPicker() : this.showSportPicker();
+        },
+        
+        /**
+         * show the info overlay
+         * @param none
+         */
+        showInfoOverlay: function() {
+        	this._hideAllOverlays();
+        	this._infoOverlay.show();
+        },
+        
+        /**
+         * hide the info overlay
+         * @param none
+         */
+        hideInfoOverlay: function() {
+        	this._infoOverlay.hide();
+        },
+        
+        /**
+         * toggle show/hide info overlay
+         * @param none
+         */
+        toggleInfoOverlay: function() {
+        	this._infoOverlay.isShowing() ? this.hideInfoOverlay() : this.showInfoOverlay();
         },
         
         /**

@@ -64,7 +64,7 @@ define([
         },
         
         /**
-         * when the panel is being shown
+         * when the view is being shown
          * @param none
          */
         show: function() {
@@ -78,7 +78,7 @@ define([
         },
         
         /**
-         * when the panel is being hidden
+         * when the view is being hidden
          * @param none
          */
         hide: function() {

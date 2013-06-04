@@ -57,6 +57,11 @@ define([
         		controller.toggleSportPicker();
         	});
         	
+        	//show info overlay
+        	this.$el.on("click", "#infoBtn", function(){
+        		controller.toggleInfoOverlay();
+        	});
+        	
             return this; //Maintains chainability
         },
         

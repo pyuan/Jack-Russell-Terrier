@@ -288,7 +288,7 @@ button:active {
 	.text {
 		position: relative;
 		float: left;
-		margin-top: 5px;
+		margin: 5px 5px 0px 0px;
 		font-size: 10px;
 		line-height: 14px;
 		white-space: nowrap;
@@ -386,13 +386,33 @@ button:active {
 .overlay 
 {
 	position: absolute;
-	overflow: hidden;
+	overflow: visible;
 	top: 100%;
 	left: 100%;
 	background: @color-light-gray;
 	border: 5px solid @color-medium-gray;
 	border-radius: 10px;
 	padding: 10px;
+	
+	#closeBtn {
+		position: absolute;
+		overflow: hidden;
+		right: -15px;
+		top: -15px;
+		width: 50px;
+		height: 50px;
+		background-color: @color-medium-gray;
+		background-image: url("@{dir-images}/icon_x.png");
+		background-repeat: no-repeat;
+		background-position: center center;
+		cursor: pointer;
+		border-radius: 25px;
+		border: 5px solid @color-medium-gray;
+	}
+	
+	#closeBtn:hover {
+		background-color: @color-light-gray;
+	}
 }
 
 .overlay.showing {
@@ -457,6 +477,31 @@ button:active {
 
 #sportOverlay.showing {
 	margin: -50px 0px 0px -317px;
+}
+
+#infoOverlay 
+{
+	width: 350px;
+	height: 500px;
+	border-radius: 25px;
+	padding: 25px;
+	background-color: rgba(246, 246, 246, 0.95);
+	
+	#logo {
+		width: 100%;
+		margin: 0px 0px 25px 0px;
+	}
+	
+	#content {
+		height: 370px;
+		overflow: auto;
+		font-size: 14px;
+		line-height: 22px;
+	}
+}
+
+#infoOverlay.showing {
+	margin: -250px 0px 0px -175px;
 }
 
 @media (max-width: @size-tablet) {
