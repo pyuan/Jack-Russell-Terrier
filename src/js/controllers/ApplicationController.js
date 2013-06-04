@@ -173,6 +173,41 @@ define([
         _hideAllOverlays: function() {
         	$(".overlay").removeClass("showing");
         },
+        
+        /**
+         * update the map with the selected sport
+         * @param none
+         */
+        updateMap: function() {
+        	this._mapView.render();
+        },
+        
+        /**
+         * show the spinner by the filters
+         * used for loading anything at the application level
+         * @param none
+         */
+        showSpinner: function() {
+        	$("#filtersSpinner").show();
+        },
+        
+        /**
+         * hide the spinner
+         * used for loading anything at the application level
+         * @param none
+         */
+        hideSpinner: function() {
+        	$("#filtersSpinner").hide();
+        },
+        
+        /**
+         * center the map on a point
+         * @param lat, number
+         * @param lng, number
+         */
+        centerMap: function(lat, lng) {
+        	this._mapView.setCenter(lat, lng);
+        },
 
     });
 

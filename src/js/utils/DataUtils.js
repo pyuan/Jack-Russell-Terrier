@@ -4,10 +4,14 @@ define([
 		"backbone",
 		"collections/LanguagesCollection",
 		"collections/SportsCollection",
+		"collections/EventsCollection",
 		"models/LanguageModel",
 		"models/SportModel",
+		"models/EventModel",
+		"models/Constants",
 		
-	], function($, Backbone, LanguagesCollection, SportsCollection, LanguageModel, SportModel) {
+	], function($, Backbone, LanguagesCollection, SportsCollection, EventsCollection, 
+		LanguageModel, SportModel, EventModel, Constants) {
 
 	var DataUtils = Backbone.Model.extend({},
 	
@@ -79,6 +83,39 @@ define([
 				}
 			}
 			this._getData("sports.json", onData);
+		},
+		
+		/**
+		 * get events by sport
+		 * @param type, int
+		 * @param onResultHandler, function to receive a EventsCollection
+		 */
+		getEventsByType: function(type, onResultHandler)
+		{
+			$.ajax({
+				type: "GET",
+				url: Constants.URL_SERVICES + "getEvents.php",
+				data: {type: type},
+				dataType: "json",
+				cache: false,
+				success: function(data) {
+					console.log("Events received for type: " + type);
+					console.log(data);
+					
+					var arr = [];
+					for(var i in data.events)
+					{
+						var e = data.events[i];
+						var event = new EventModel(e);
+						arr.push(event);
+					}
+					var events = new EventsCollection(arr);
+					
+					if(onResultHandler) {
+						onResultHandler(events);
+					}
+				}
+			});	
 		},
 			
 	});

@@ -13,6 +13,7 @@ define([
 				"id": attributes["id"] ? attributes["id"] : "",
 				"name": attributes["name"] ? attributes["name"] : "",
 				"icon": attributes["icon"] ? attributes["icon"] : "",
+				"map_icon": attributes["map_icon"] ? attributes["map_icon"] : "",
 			});
 		},
 		

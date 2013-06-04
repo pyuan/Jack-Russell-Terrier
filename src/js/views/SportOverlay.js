@@ -54,6 +54,9 @@ define([
         		var id = $(this).attr("data-id");
         		var sport = self._sports.get(id);
         		user.set("sport", sport);
+        		
+        		//redraw map with seelcted sport
+        		controller.updateMap();
         	});
         	
             return this; //Maintains chainability

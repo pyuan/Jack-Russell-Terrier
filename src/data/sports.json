@@ -3,43 +3,50 @@
 	{
 		"id" : "0",
 		"name" : "basketball",
-		"icon" : "assets/images/icon_basketball.png"
+		"icon" : "assets/images/icon_basketball.png",
+		"map_icon" : "assets/images/map/icon_basketball.png"
 	},
 	
 	{
 		"id" : "1",
 		"name" : "tennis",
-		"icon" : "assets/images/icon_tennis.png"
+		"icon" : "assets/images/icon_tennis.png",
+		"map_icon" : "assets/images/map/icon_tennis.png"
 	},
 	
 	{
 		"id" : "2",
 		"name" : "baseball",
-		"icon" : "assets/images/icon_baseball.png"
+		"icon" : "assets/images/icon_baseball.png",
+		"map_icon" : "assets/images/map/icon_baseball.png"
 	},
 	
 	{
 		"id" : "3",
 		"name" : "football",
-		"icon" : "assets/images/icon_football.png"
+		"icon" : "assets/images/icon_football.png",
+		"map_icon" : "assets/images/map/icon_football.png"
 	},
 	
 	{
 		"id" : "4",
 		"name" : "volleyball",
-		"icon" : "assets/images/icon_volleyball.png"
+		"icon" : "assets/images/icon_volleyball.png",
+		"map_icon" : "assets/images/map/icon_volleyball.png"
 	},
 	
 	{
 		"id" : "5",
 		"name" : "hockey",
-		"icon" : "assets/images/icon_hockey.png"
+		"icon" : "assets/images/icon_hockey.png",
+		"map_icon" : "assets/images/map/icon_hockey.png"
 	},
 	
 	{
 		"id" : "6",
 		"name" : "soccer",
-		"icon" : "assets/images/icon_soccer.png"
+		"icon" : "assets/images/icon_soccer.png",
+		"map_icon" : "assets/images/map/icon_soccer.png"
 	}
 
 ]
