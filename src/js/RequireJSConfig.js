@@ -66,13 +66,17 @@ require([
 		"bootstrap",
 		"gsap",
 		"scrollto",
+		"cftoaster",
 		"controllers/ApplicationController",
 	
-	], function( $, Helper, Plugins, Backbone, Less, Bootstrap, GSAP, ScrollTo, ApplicationController ) {
+	], function( $, Helper, Plugins, Backbone, Less, Bootstrap, GSAP, ScrollTo, cftoaster, ApplicationController ) {
 	
 	$(function() {
 
 		window["controller"] = new ApplicationController();
+		
+		//set default colours for cftoaster
+		$.cftoaster.setDefaults({backgroundColor: "#29abe1"});
 		
 	});	
 	

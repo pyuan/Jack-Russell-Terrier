@@ -123,7 +123,8 @@ define([
         	var self = this;
         	setTimeout(function(){
         		
-        		console.log(marker.event);
+        		var event = marker.event;
+        		controller.showEventOverlay(event.id, self._clickPosition.x, self._clickPosition.y);
         		
         	}, 250);
         },

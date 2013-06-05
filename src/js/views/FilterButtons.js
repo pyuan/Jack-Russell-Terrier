@@ -57,6 +57,11 @@ define([
         		controller.toggleSportPicker();
         	});
         	
+        	//show the new event overlay
+        	this.$el.on("click", "#newBtn", function(){
+        		controller.toggleNewEventOverlay();
+        	});
+        	
         	//show info overlay
         	this.$el.on("click", "#infoBtn", function(){
         		controller.toggleInfoOverlay();

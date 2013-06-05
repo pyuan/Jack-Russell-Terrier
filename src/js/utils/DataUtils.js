@@ -94,7 +94,7 @@ define([
 		{
 			$.ajax({
 				type: "GET",
-				url: Constants.URL_SERVICES + "getEvents.php",
+				url: Constants.URL_SERVICES + "getEventsByType.php",
 				data: {type: type},
 				dataType: "json",
 				cache: false,
@@ -113,6 +113,32 @@ define([
 					
 					if(onResultHandler) {
 						onResultHandler(events);
+					}
+				}
+			});	
+		},
+		
+		/**
+		 * get event detail by id and locale
+		 * @param id, int
+		 * @param locale, string constant
+		 * @param onResultHandler, function to receive a EventModel
+		 */
+		getEventById: function(id, locale, onResultHandler)
+		{
+			$.ajax({
+				type: "GET",
+				url: Constants.URL_SERVICES + "getEventById.php",
+				data: {id: id, locale: locale},
+				dataType: "json",
+				cache: false,
+				success: function(data) {
+					console.log("Event received for id: " + id + " with locale: " + locale);
+					console.log(data);
+					
+					var event = new EventModel(data.event);
+					if(onResultHandler) {
+						onResultHandler(event);
 					}
 				}
 			});	

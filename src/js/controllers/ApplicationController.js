@@ -13,8 +13,11 @@ define([
 		"views/SportOverlay",
 		"views/FilterButtons",
 		"views/InfoOverlay",
+		"views/EventOverlay",
+		"views/NewEventOverlay",
 		
-	], function( $, Backbone, Blur, UserModel, PTMap, LanguageOverlay, SportOverlay, FilterButtons, InfoOverlay ) {
+	], function( $, Backbone, Blur, UserModel, PTMap, LanguageOverlay, SportOverlay, FilterButtons, InfoOverlay, 
+		EventOverlay, NewEventOverlay ) {
 
     // Extends Backbone.Router
     var ApplicationController = Backbone.Router.extend({
@@ -25,6 +28,8 @@ define([
 		_sportPicker: null, //SportOverlay object
 		_filterButtons: null, //FilterButtons object
 		_infoOverlay: null, //InfoOverlay object
+		_eventOverlay: null, //EventOverlay object
+		_newEventOverlay: null, //NewEventOverlay object
 		
         /**
          * The Router constructor
@@ -40,6 +45,8 @@ define([
         	this._sportPicker = new SportOverlay({el: $("#sportOverlay")});
         	this._filterButtons = new FilterButtons({el: $("#filterButtons")});
         	this._infoOverlay = new InfoOverlay({el: $("#infoOverlay")});
+        	this._eventOverlay = new EventOverlay({el: $("#eventOverlay")});
+        	this._newEventOverlay = new NewEventOverlay({el: $("#newEventOverlay")});
 
         	this._showStep1();
         	
@@ -195,11 +202,60 @@ define([
         },
         
         /**
+         * show the info overlay
+         * @param eventId, int
+         * @param x, int
+         * @param y, int
+         */
+        showEventOverlay: function(eventId, x, y) {
+        	this._hideAllOverlays();
+        	this._eventOverlay.show(eventId, x, y);
+        },
+        
+        /**
+         * hide the info overlay
+         * @param none
+         */
+        hideEventOverlay: function() {
+        	this._eventOverlay.hide();
+        },
+        
+        /**
+         * show the new event overlay
+         * @param none
+         */
+        showNewEventOverlay: function() {
+        	this._hideAllOverlays();
+        	this._newEventOverlay.show();
+        },
+        
+        /**
+         * hide the info overlay
+         * @param none
+         */
+        hideNewEventOverlay: function() {
+        	this._newEventOverlay.hide();
+        },
+        
+        /**
+         * toggle show/hide info overlay
+         * @param none
+         */
+        toggleNewEventOverlay: function() {
+        	this._newEventOverlay.isShowing() ? this.hideNewEventOverlay() : this.showNewEventOverlay();
+        },
+        
+        /**
          * hide all the overlays
          * @param none
          */
-        _hideAllOverlays: function() {
-        	$(".overlay").removeClass("showing");
+        _hideAllOverlays: function() 
+        {
+        	this._languagePicker.hide();
+			this._sportPicker.hide();
+			this._infoOverlay.hide();
+			this._eventOverlay.hide();
+			this._newEventOverlay.hide();
         },
         
         /**

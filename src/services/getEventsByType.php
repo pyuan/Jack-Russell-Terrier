@@ -14,27 +14,19 @@
 	mysql_select_db(DB, $link);
 	
 	//get event for type
-	$sql = "SELECT * FROM " . TABLE_EVENTS . ($type==-1 ? "" : " WHERE type='$type'");
+	$sql = "SELECT id, lat, lng FROM " . TABLE_EVENTS . ($type==-1 ? "" : " WHERE type='$type'");
 	$result = mysql_query($sql, $link);
 	$events = array();
 	while ($row = mysql_fetch_array($result)) 
 	{
 		$event = array();
 		$event["id"] = $row["id"];
-		$event["name"] = $row["name"];
-		$event["loc_name"] = $row["loc_name"];
-		$event["description"] = $row["description"];
-		$event["address"] = $row["address"];
-		$event["phone"] = $row["phone"];
-		$event["price"] = $row["price"];
-		$event["schedule"] = $row["schedule"];
-		$event["type"] = $row["type"];
 		$event["lat"] = $row["lat"];
 		$event["lng"] = $row["lng"];
 		$events[ $event["id"] ] = $event;
 	}
 	
-	//sort patterns into routes in the final json response
+	//create response json
 	$response = array();
 	$response["events"] = $events;
 	echo json_encode($response);
