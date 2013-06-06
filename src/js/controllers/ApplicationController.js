@@ -74,7 +74,7 @@ define([
         {
         	$("#block").fadeIn(500);
         	$("#footer, #map, #foreground").blurjs({
-			    radius: 10,
+			    radius: 7,
 			    persist: false
 			});
         },
